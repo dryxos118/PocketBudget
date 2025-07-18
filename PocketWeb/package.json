@@ -1,0 +1,18 @@
+{
+  "name": "pocketweb",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx gulp build"
+  },
+  "dependencies": {
+    "gulp": "^5.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.1.0",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.89.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.31.0"
+  }
+}

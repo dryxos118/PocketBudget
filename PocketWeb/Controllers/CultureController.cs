@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PocketWeb.Controllers;
 
-[Microsoft.AspNetCore.Components.Route("[controller]/[action]")]
+[Route("[controller]/[action]")]
 public class CultureController : Controller
 {
     public IActionResult SetCulture(string? culture, string redirectUri)
@@ -15,7 +15,6 @@ public class CultureController : Controller
                 CookieRequestCultureProvider.MakeCookieValue(
                     new RequestCulture(culture, culture)));
         }
-
         return LocalRedirect(redirectUri);
     }
 }

@@ -1,0 +1,60 @@
+@using System.Globalization
+@inherits PocketComponentsBase
+
+<MudMenu Class="mx-1" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+    <ActivatorContent>
+        <button class="mud-button-root mud-icon-button mud-inherit-text hover:mud-inherit-hover mud-ripple mud-ripple-icon pocket-shake">
+            <img src="@($"../Icon/{Culture.Name}.svg")" height="20" width="20" class="mr-1" />
+        </button>
+    </ActivatorContent>
+    <ChildContent>
+        @foreach (CultureInfo culture in SupportedCultures)
+        {
+            <MudMenuItem @onclick="() => SetCulture(culture)">
+                <img src="@($"../Icon/{culture.Name}.svg")" height="20" width="20" class="mr-1" />
+                @ClassFlags[culture.Name]
+            </MudMenuItem>
+        }
+    </ChildContent>
+</MudMenu>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = null!;
+    
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (!Equals(CultureInfo.CurrentCulture, value))
+            {
+                var uri = new Uri(Navigation.Uri)
+                    .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var cultureEscaped = Uri.EscapeDataString(value.Name);
+                var uriEscaped = Uri.EscapeDataString(uri);
+
+                Navigation.NavigateTo(
+                    $"culture/setCulture?culture={cultureEscaped}&redirectUri={uriEscaped}",
+                    forceLoad: true);
+            }
+        }
+    }
+
+    private readonly CultureInfo[] SupportedCultures =
+    [
+        new CultureInfo("fr-FR"),
+        new CultureInfo("en-US")
+    ];
+
+    private readonly Dictionary<string, string> ClassFlags = new()
+    {
+        // TRAD
+        { "fr-FR", "Français" },
+        { "en-US", "English" }
+    };
+
+    private void SetCulture(CultureInfo culture)
+    {
+        Culture = culture;
+    }
+}

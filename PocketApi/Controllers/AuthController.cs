@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace PocketApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class AuthController(ILogger<AuthController> logger, IPocketAuthService pocketAuthService) : Controller
     {
@@ -16,7 +16,6 @@ namespace PocketApi.Controllers
         private readonly IPocketAuthService _pocketAuthService = pocketAuthService;
 
         [HttpPost]
-        [Route("[Action]")]
         [SwaggerOperation(
             Summary = "Register a new user",
             Description = "Registers a new user in the system."
@@ -46,7 +45,6 @@ namespace PocketApi.Controllers
         }
 
         [HttpPost]
-        [Route("[Action]")]
         [SwaggerOperation(
             Summary = "Authenticate a user",
             Description = "Authenticates a user and returns a AuthResponseDto if the credentials are valid."
@@ -76,7 +74,6 @@ namespace PocketApi.Controllers
         }
 
         [HttpPost]
-        [Route("[Action]")]
         public async Task<IActionResult> RefreshToken(int userId)
         {
             await Task.Delay(1);

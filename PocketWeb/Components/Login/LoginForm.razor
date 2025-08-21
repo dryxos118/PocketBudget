@@ -1,0 +1,41 @@
+@inherits PocketComponentsBase
+
+<div class="p-4">
+    <EditForm Model="@_login" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_login.Email"
+                      Label="Email"
+                      Variant="Variant.Outlined"
+                      InputType="InputType.Text"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.Email"
+                      ShrinkLabel
+                      For="@(() => _login.Email)"/>
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_login.Password"
+                      Label="Password"
+                      Variant="Variant.Outlined"
+                      InputType="@_inputType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@_passwordInputIcon"
+                      OnAdornmentClick="@ShowHidePassword"
+                      AdornmentAriaLabel="Show Password"
+                      ShrinkLabel
+                      For="@(() => _login.Password)"/>
+        <MudButton Color="@Color.Primary" ButtonType="ButtonType.Submit" Variant="Variant.Filled" FullWidth="true">
+            @if (_isSubmitting)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                <span class="ms-2">Connexion...</span>
+            }
+            else
+            {
+                <span>Se connecter</span>
+            }
+        </MudButton>
+    </EditForm>
+    <div class="text-center mt-3">
+        <a href="/register" class="pocket-link">
+            Pas encore inscrit ? Créer un compte
+        </a>
+    </div>
+</div>

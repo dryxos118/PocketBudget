@@ -1,0 +1,29 @@
+@if (IsLoading)
+{
+@* TRAD *@
+<PageTitle>Chargement</PageTitle>
+
+<div class="d-grid justify-content-center position-absolute loading-phone">
+    <div class="phone">
+        <span class="loader"></span>
+        <span class="text">Pocket Budget ...</span>
+    </div>
+</div>
+}
+else
+{
+@ChildContent
+}
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public bool IsLoading { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000);
+        IsLoading = false;
+    }
+}

@@ -1,0 +1,241 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-background: #1E2029;
+  --color-surface: #242424;
+  --color-surface-2: #2e2e2e;
+  --color-text: #e0e0e0;
+  --color-primary: #9A6AFF;
+  --color-primary-hover: #bc9bff;
+  --color-primary-active: #7736fe;
+  --color-secondary: #504c97;
+  --color-secondary-hover: #5c69ac;
+  --color-secondary-active: #36437a;
+  --spacing: 0.2rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease-in-out;
+}
+
+body {
+  background-color: var(--color-background) !important;
+  color: var(--color-text) !important;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  height: 100vh;
+}
+body .mud-main-content {
+  height: 100%;
+  padding: 0 16px 16px 16px;
+}
+
+.page {
+  height: calc(100vh - var(--mud-appbar-height));
+  display: flex;
+  flex-direction: column;
+}
+
+.pocket-panel {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-surface);
+  box-shadow: var(--light-shadow);
+  height: auto;
+}
+.pocket-panel.secondary {
+  background-color: var(--color-surface-2);
+}
+
+.pocket-divider {
+  border: 1px solid #424242;
+}
+/* phone */
+.loading-phone {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  right: 50%;
+  /* boutton */
+  /* camera */
+  /* loader */
+  /* loading text */
+}
+.loading-phone .phone {
+  background-color: var(--color-secondary);
+  height: 13rem;
+  aspect-ratio: 31/16;
+  border-radius: 0.5rem;
+  border: 5px solid #CFCCD6;
+  border-top: 10px solid #CFCCD6;
+  border-bottom: 10px solid #CFCCD6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  animation: shake 0.5s infinite linear;
+  position: relative;
+}
+.loading-phone .phone::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 90%;
+  transform: translateX(-50%);
+  width: 1rem;
+  height: 5px;
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+}
+.loading-phone .phone::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2rem;
+  height: 5px;
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+}
+.loading-phone .loader {
+  border: 5px dashed white;
+  width: 2rem;
+  height: 2rem;
+  padding: 1.7rem;
+  border-radius: 50%;
+  animation: loading 3s ease-in-out infinite;
+}
+.loading-phone .text {
+  color: var(--loader-clr);
+}
+
+@media screen and (max-width: 1024px) {
+  .loading-phone .phone {
+    aspect-ratio: 20/16 !important;
+  }
+  .loading-phone .phone::before {
+    width: 1rem !important;
+  }
+  .loading-phone .phone::after {
+    left: 50% !important;
+    border-radius: 100%;
+    width: 7px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .loading-phone .phone {
+    aspect-ratio: 10/16 !important;
+  }
+  .loading-phone .phone::before {
+    width: 1rem !important;
+  }
+  .loading-phone .phone::after {
+    left: 50% !important;
+    border-radius: 100%;
+    width: 7px;
+  }
+}
+[class*=pocket-icon-] {
+  height: 30px;
+  width: 35px;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.pocket-icon-france {
+  background-image: url("../Icon/fr-FR.svg");
+}
+
+.pocket-icon-english {
+  background-image: url("../Icon/en-US.svg");
+}
+
+.pocket-icon-calendar-check {
+  background-image: url("../Icon/calendar-check.svg");
+}
+
+.pocket-icon-calendar-week {
+  background-image: url("../Icon/calendar-week.svg");
+}
+
+.pocket-icon-calendar-years {
+  background-image: url("../Icon/calendar-years.svg");
+}
+
+.pocket-icon-calendar-circle-plus {
+  background-image: url("../Icon/calendar-circle-plus.svg");
+}
+
+.pocket-rotate:hover {
+  animation: rotate-scale 2s linear infinite;
+}
+
+.pocket-shake:hover {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes rotate-scale {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(60deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(60deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(2px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes fallAnimation {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}

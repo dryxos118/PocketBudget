@@ -1,0 +1,61 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-background: #1E2029;
+  --color-surface: #242424;
+  --color-surface-2: #2e2e2e;
+  --color-text: #e0e0e0;
+  // Primary
+  --color-primary: #9A6AFF;
+  --color-primary-hover: #bc9bff;
+  --color-primary-active: #7736fe;
+  // Secondary
+  --color-secondary: #504c97;
+  --color-secondary-hover: #5c69ac;
+  --color-secondary-active: #36437a;
+  // Other
+  --spacing: 0.2rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease-in-out;
+}
+
+body {
+  background-color: var(--color-background) !important;
+  color: var(--color-text) !important;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  height: 100vh;
+
+  .mud-main-content {
+    height: 100%;
+    padding: 0 16px 16px 16px;
+  }
+}
+
+.page {
+  height: calc(100vh - var(--mud-appbar-height));
+  display: flex;
+  flex-direction: column;
+}
+
+.pocket-panel {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-surface);
+  box-shadow: var(--light-shadow);
+  height: auto;
+
+  &.secondary {
+    background-color: var(--color-surface-2);
+  }
+}
+
+.pocket-divider {
+  border: 1px solid #424242;
+}

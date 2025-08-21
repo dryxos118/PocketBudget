@@ -1,0 +1,62 @@
+@page "/login"
+
+<div class="container-fluid">
+    <div class="row vh-100">
+        <div class="col-md-6 d-none d-md-block p-0">
+            <img src="img/PocketBack.svg"
+                 alt="Login illustration"
+                 class="img-fluid h-100 w-100"
+                 style="object-fit: cover;"/>
+        </div>
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+            <div class="w-75">
+                <PocketPanel Title="Se connecter">
+                    <PanelContent>
+                        <MudForm @ref="_form" OnValidSubmit="OnValidSubmit">
+                            <MudTextField @bind-Value="_email"
+                                          Label="Email"
+                                          Required="true"
+                                          FullWidth="true"
+                                          Class="mb-3"/>
+
+                            <MudTextField @bind-Value="_password"
+                                          Label="Mot de passe"
+                                          InputType="InputType.Password"
+                                          Required="true"
+                                          FullWidth="true"
+                                          Class="mb-3"/>
+
+                            <MudButton Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       FullWidth="true"
+                                       ButtonType="ButtonType.Submit">
+                                Connexion
+                            </MudButton>
+                        </MudForm>
+
+                        <div class="mt-3 text-center">
+                            <MudText Typo="Typo.body2">
+                                <a href="#">Mot de passe oublié ?</a> ·
+                                <a href="#">Créer un compte</a>
+                            </MudText>
+                        </div>
+                    </PanelContent>
+                </PocketPanel>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    private MudForm _form;
+    private string _email;
+    private string _password;
+
+    private async Task OnValidSubmit()
+    {
+        await Task.Delay(300);
+        Console.WriteLine($@"Login with {_email} / {_password}");
+    }
+
+}

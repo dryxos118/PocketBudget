@@ -1,0 +1,75 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Components.Authorization
+@using PocketWeb.Components.Pages
+
+<MudThemeProvider IsDarkMode="true"/>
+<MudPopoverProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <AuthorizeView>
+                <Authorized>
+                    <Loading>
+                        <RouteView RouteData="routeData" DefaultLayout="@typeof(Layout.MainLayout)"/>
+                        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+                    </Loading>
+                </Authorized>
+                <NotAuthorized>
+                    <Loading>
+                        @if (routeData.PageType == typeof(LoginPage))
+                        {
+                            <RouteView RouteData="routeData" DefaultLayout="@null"/>
+                        }
+                        else
+                        {
+                            NavigationManager.NavigateTo("/login");
+                        }
+                    </Loading>
+                </NotAuthorized>
+            </AuthorizeView>
+        </Found>
+
+        <NotFound>
+            <div class="vh-100 d-flex align-items-center justify-content-center flex-column gap-3">
+                <h3>Page not found</h3>
+                <a class="btn btn-primary" href="/">Return to home page</a>
+            </div>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code
+{
+    [CascadingParameter] public HttpContext? HttpContext { get; set; }
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        HttpContext?.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
+    }
+
+    private readonly MudTheme _pocketBudgetTheme = new()
+    {
+        PaletteDark = new PaletteDark
+        {
+            Primary = "#9A6AFF",
+            Secondary = "#4c5897",
+            Tertiary = "#9A6AFF",
+            Dark = "#1e2029",
+            Background = "#1e2029",
+            Black = "#1e2029",
+            Surface = "242424",
+            TextPrimary = "#e0e0e0",
+        }
+    };
+}

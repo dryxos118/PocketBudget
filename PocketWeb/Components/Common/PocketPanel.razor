@@ -1,0 +1,22 @@
+@inherits PocketComponentsBase
+
+<div class="@(PanelClass + " " + Class)">
+    @if (ShowHeader)
+    {
+        <div class="d-flex align-items-center mb-3">
+            <MudIcon Icon="@Icon" Color="@Color.Primary"/>
+            @if (IsPrimary)
+            {
+                <h3 class="@(HeaderClass)">@Title</h3>
+            }
+            else
+            {
+                <h4 class="@(HeaderClass)">@Title</h4>
+            }
+        </div>
+        <div class="pocket-divider mb-3" />
+    }
+    <div class="@(ChildClassName)">
+        @PanelContent
+    </div>
+</div>

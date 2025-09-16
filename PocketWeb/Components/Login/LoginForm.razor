@@ -9,18 +9,18 @@
                       InputType="InputType.Text"
                       Adornment="Adornment.End"
                       AdornmentIcon="@Icons.Material.Filled.Email"
-                      ShrinkLabel
                       For="@(() => _login.Email)"/>
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_login.Password"
-                      Label="Password"
+        
+        <MudTextField Class="mb-5 col-form-label input" @bind-Value="@_login.Password"
+                      Label="Mot de passe"
                       Variant="Variant.Outlined"
                       InputType="@_inputType"
                       Adornment="Adornment.End"
                       AdornmentIcon="@_passwordInputIcon"
                       OnAdornmentClick="@ShowHidePassword"
                       AdornmentAriaLabel="Show Password"
-                      ShrinkLabel
                       For="@(() => _login.Password)"/>
+        
         <MudButton Color="@Color.Primary" ButtonType="ButtonType.Submit" Variant="Variant.Filled" FullWidth="true">
             @if (_isSubmitting)
             {

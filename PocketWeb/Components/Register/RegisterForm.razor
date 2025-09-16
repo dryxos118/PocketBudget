@@ -1,0 +1,60 @@
+@inherits PocketComponentsBase
+
+<div class="p-4">
+    <EditForm Model="@_register" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.FirstName"
+                      Label="Prénom"
+                      Variant="Variant.Outlined"
+                      InputType="InputType.Text"
+                      For="@(() => _register.FirstName)"/>
+        
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.LastName"
+                      Label="Nom"
+                      Variant="Variant.Outlined"
+                      InputType="InputType.Text"
+                      For="@(() => _register.LastName)"/>
+        
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.Email"
+                      Label="Email"
+                      Variant="Variant.Outlined"
+                      InputType="InputType.Email"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@Icons.Material.Filled.Email"
+                      For="@(() => _register.Email)"/>
+        
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.Password"
+                      Label="Mot de passe"
+                      Variant="Variant.Outlined"
+                      InputType="@_passwordInputType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@_passwordIcon"
+                      OnAdornmentClick="@TogglePassword"
+                      For="@(() => _register.Password)"/>
+        
+        <MudTextField Class="mb-5 col-form-label input" @bind-Value="@_register.ConfirmPassword"
+                      Label="Confirmer le mot de passe"
+                      Variant="Variant.Outlined"
+                      InputType="@_confirmInputType"
+                      Adornment="Adornment.End"
+                      AdornmentIcon="@_confirmIcon"
+                      OnAdornmentClick="@ToggleConfirm"
+                      For="@(() => _register.ConfirmPassword)"/>
+        
+        <MudButton Color="@Color.Primary" ButtonType="ButtonType.Submit" Variant="Variant.Filled" FullWidth="true"
+                   Disabled="@_isSubmitting">
+            @if (_isSubmitting)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true"/>
+                <span class="ms-2">Création du compte...</span>
+            }
+            else
+            {
+                <span>S'inscrire</span>
+            }
+        </MudButton>
+    </EditForm>
+    <div class="text-center mt-3">
+        <a href="/login" class="pocket-link">Déjà inscrit ? Se connecter</a>
+    </div>
+</div>

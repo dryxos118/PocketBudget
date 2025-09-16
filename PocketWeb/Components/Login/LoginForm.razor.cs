@@ -15,25 +15,21 @@ public partial class LoginForm : PocketComponentsBase
     [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 
     private bool _isSubmitting;
-    private LoginDto _login = new LoginDto();
-
-    private bool _isShow;
+    private LoginDto _login = new();
     private InputType _inputType = InputType.Password;
     private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
 
     private void ShowHidePassword()
     {
-        if (_isShow)
+        if (_inputType == InputType.Password)
         {
-            _isShow = false;
-            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
-            _inputType = InputType.Password;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _inputType = InputType.Text;
         }
         else
         {
-            _isShow = true;
-            _passwordInputIcon = Icons.Material.Filled.Visibility;
-            _inputType = InputType.Text;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _inputType = InputType.Password;
         }
     }
 

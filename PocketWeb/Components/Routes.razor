@@ -20,7 +20,7 @@
                 </Authorized>
                 <NotAuthorized>
                     <Loading>
-                        @if (routeData.PageType == typeof(LoginPage))
+                        @if (routeData.PageType == typeof(LoginPage) || routeData.PageType == typeof(RegisterPage))
                         {
                             <RouteView RouteData="routeData" DefaultLayout="@null"/>
                         }
@@ -36,7 +36,7 @@
         <NotFound>
             <div class="vh-100 d-flex align-items-center justify-content-center flex-column gap-3">
                 <h3>Page not found</h3>
-                <a class="btn btn-primary" href="/">Return to home page</a>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" Href="/">Retourner a la page d'acceuil</MudButton>
             </div>
         </NotFound>
     </Router>

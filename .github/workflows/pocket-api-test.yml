@@ -1,0 +1,39 @@
+name: PocketApi Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests and log to file
+        run: dotnet test --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Tests failed! Check the logs for more details."

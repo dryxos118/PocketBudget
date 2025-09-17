@@ -1,4 +1,5 @@
-﻿using EnumsNET;
+﻿using System.Security.Claims;
+using EnumsNET;
 using Microsoft.AspNetCore.Mvc;
 using PocketApi.Models;
 
@@ -6,7 +7,8 @@ namespace PocketApi.Config
 {
     public static class ControllerExtensions
     {
-        public static IActionResult HandlePocketActionResult(this ControllerBase controller, PocketActionResult ex, ILogger logger)
+        public static IActionResult HandlePocketActionResult(this ControllerBase controller, PocketActionResult ex,
+            ILogger logger)
         {
             if (string.IsNullOrEmpty(ex.Location))
             {
@@ -17,7 +19,8 @@ namespace PocketApi.Config
 
             logger.LogWarning($"Warning: {ex.Message}, Location: {ex.Location}");
 
-            object resultObj = new { type = ex.Type.GetName(), message = ex.Message, location = ex.Location, details = ex.Details };
+            object resultObj = new
+                { type = ex.Type.GetName(), message = ex.Message, location = ex.Location, details = ex.Details };
 
 
             return ex.Type switch
@@ -49,6 +52,16 @@ namespace PocketApi.Config
                     detail: errors
                 );
             }
+        }
+
+        public static int GetUserId(this Controller controller)
+        {
+            string? userId = controller.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new PocketActionResult("No user found", ErrorType.Unauthorized);
+            }
+            return int.Parse(userId);
         }
     }
 }

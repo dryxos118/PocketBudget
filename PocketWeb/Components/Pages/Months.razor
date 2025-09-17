@@ -1,0 +1,10 @@
+﻿@page "/month"
+@page "/month/{month:int}"
+
+<h1>Months Page</h1>
+<h3>@Month</h3>
+
+@code
+{
+    [Parameter] public int Month { get; set; } = DateTime.Now.Month;
+}

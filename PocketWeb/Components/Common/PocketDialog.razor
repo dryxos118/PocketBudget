@@ -1,0 +1,12 @@
+<MudDialog Style="width:50%;">
+    <DialogContent>
+        @if(DynamicType != null)
+        {
+            <DynamicComponent @ref="DynamicComponentRef" Type="@DynamicType" Parameters="@TypeParameters"></DynamicComponent>
+        }       
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="@Color.Error" FullWidth="true" Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="@Color.Primary" FullWidth="true" Variant="Variant.Filled" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>

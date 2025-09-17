@@ -3,19 +3,19 @@
 <div class="p-4">
     <EditForm Model="@_register" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator/>
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.FirstName"
+        <MudTextField Class="mb-2 col-form-label input" @bind-Value="@_register.FirstName"
                       Label="Prénom"
                       Variant="Variant.Outlined"
                       InputType="InputType.Text"
                       For="@(() => _register.FirstName)"/>
         
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.LastName"
+        <MudTextField Class="mb-2 col-form-label input" @bind-Value="@_register.LastName"
                       Label="Nom"
                       Variant="Variant.Outlined"
                       InputType="InputType.Text"
                       For="@(() => _register.LastName)"/>
         
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.Email"
+        <MudTextField Class="mb-2 col-form-label input" @bind-Value="@_register.Email"
                       Label="Email"
                       Variant="Variant.Outlined"
                       InputType="InputType.Email"
@@ -23,7 +23,7 @@
                       AdornmentIcon="@Icons.Material.Filled.Email"
                       For="@(() => _register.Email)"/>
         
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.Password"
+        <MudTextField Class="mb-2 col-form-label input" @bind-Value="@_register.Password"
                       Label="Mot de passe"
                       Variant="Variant.Outlined"
                       InputType="@_passwordInputType"
@@ -32,7 +32,7 @@
                       OnAdornmentClick="@TogglePassword"
                       For="@(() => _register.Password)"/>
         
-        <MudTextField Class="mb-5 col-form-label input" @bind-Value="@_register.ConfirmPassword"
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_register.ConfirmPassword"
                       Label="Confirmer le mot de passe"
                       Variant="Variant.Outlined"
                       InputType="@_confirmInputType"

@@ -38,6 +38,10 @@ body {
   }
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .page {
   height: calc(100vh - var(--mud-appbar-height));
   display: flex;
@@ -58,4 +62,17 @@ body {
 
 .pocket-divider {
   border: 1px solid #424242;
+}
+
+.pocket-link, .mud-nav-link {
+  text-decoration: none;
+  color: var(--color-primary);
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+  
+  &.active{
+    color: var(--color-primary-active);
+  }
 }

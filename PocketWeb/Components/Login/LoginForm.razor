@@ -3,7 +3,7 @@
 <div class="p-4">
     <EditForm Model="@_login" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator/>
-        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_login.Email"
+        <MudTextField Class="mb-2 col-form-label input" @bind-Value="@_login.Email"
                       Label="Email"
                       Variant="Variant.Outlined"
                       InputType="InputType.Text"
@@ -11,7 +11,7 @@
                       AdornmentIcon="@Icons.Material.Filled.Email"
                       For="@(() => _login.Email)"/>
         
-        <MudTextField Class="mb-5 col-form-label input" @bind-Value="@_login.Password"
+        <MudTextField Class="mb-3 col-form-label input" @bind-Value="@_login.Password"
                       Label="Mot de passe"
                       Variant="Variant.Outlined"
                       InputType="@_inputType"

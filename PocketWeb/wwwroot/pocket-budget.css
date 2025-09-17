@@ -34,6 +34,10 @@ body .mud-main-content {
   padding: 0 16px 16px 16px;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .page {
   height: calc(100vh - var(--mud-appbar-height));
   display: flex;
@@ -54,16 +58,23 @@ body .mud-main-content {
 .pocket-divider {
   border: 1px solid #424242;
 }
+
+.pocket-link, .mud-nav-link {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+.pocket-link:hover, .mud-nav-link:hover {
+  color: var(--color-primary-hover);
+}
+.pocket-link.active, .mud-nav-link.active {
+  color: var(--color-primary-active);
+}
 /* phone */
 .loading-phone {
   position: absolute;
   top: 35%;
   left: 50%;
   right: 50%;
-  /* boutton */
-  /* camera */
-  /* loader */
-  /* loading text */
 }
 .loading-phone .phone {
   background-color: var(--color-secondary);
@@ -81,6 +92,9 @@ body .mud-main-content {
   animation: shake 0.5s infinite linear;
   position: relative;
 }
+.loading-phone {
+  /* boutton */
+}
 .loading-phone .phone::after {
   content: "";
   position: absolute;
@@ -91,6 +105,9 @@ body .mud-main-content {
   height: 5px;
   background-color: var(--color-background);
   border-radius: 0.5rem;
+}
+.loading-phone {
+  /* camera */
 }
 .loading-phone .phone::before {
   content: "";
@@ -103,6 +120,9 @@ body .mud-main-content {
   background-color: var(--color-background);
   border-radius: 0.5rem;
 }
+.loading-phone {
+  /* loader */
+}
 .loading-phone .loader {
   border: 5px dashed white;
   width: 2rem;
@@ -110,6 +130,9 @@ body .mud-main-content {
   padding: 1.7rem;
   border-radius: 50%;
   animation: loading 3s ease-in-out infinite;
+}
+.loading-phone {
+  /* loading text */
 }
 .loading-phone .text {
   color: var(--loader-clr);

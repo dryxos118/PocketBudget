@@ -8,6 +8,8 @@ namespace PocketApi.Config
         public static void AddPocketBudgetService(this IServiceCollection services)
         {
             services.AddScoped<IPocketAuthService, PocketAuthService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IReportingService, ReportingService>();
         }
     }
 }

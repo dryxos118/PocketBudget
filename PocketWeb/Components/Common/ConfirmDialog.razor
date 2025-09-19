@@ -1,0 +1,19 @@
+@inherits PocketComponentsBase
+@using PocketWeb.Models.Utils
+@implements IPocketDialogComponent
+
+<div class="text-center">
+    <MudText HtmlTag="div">@Message</MudText>
+</div>
+
+@code {
+    [Parameter] public string Message { get; set; } = string.Empty;
+    
+    public async Task<PocketDialogResult> GetDialogResult()
+    {
+        return await Task.FromResult(new PocketDialogResult()
+        {
+            
+        });
+    }
+}

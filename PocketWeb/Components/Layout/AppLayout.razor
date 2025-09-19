@@ -1,0 +1,22 @@
+@inherits LayoutComponentBase
+
+<MudLayout>
+    <AppHeader OnToggleDrawer="@ToggleDrawer" OnLogout="@DisplayConfirmLogoutDialog" ProfileInfo="_currentProfile"/>
+    
+    <MudHidden Breakpoint="Breakpoint.MdAndDown">
+        <AppDrawer Open="false"
+                   Variant="DrawerVariant.Mini"
+                   Elevation="1"
+                   Items="_navItems"/>
+    </MudHidden>
+
+    <AppDrawer Open="@_drawerOpen"
+               OpenChanged="@OnDrawerChanged"
+               Variant="DrawerVariant.Temporary"
+               Elevation="2"
+               Items="_navItems"/>
+
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

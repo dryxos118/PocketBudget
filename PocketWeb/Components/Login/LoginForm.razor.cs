@@ -40,7 +40,7 @@ public partial class LoginForm : PocketComponentsBase
         if (!string.IsNullOrEmpty(_login.Email) && !string.IsNullOrEmpty(_login.Password))
         {
             AuthResponseDto? authResponseDto =
-                await PocketApiService.PostAsync<AuthResponseDto, LoginDto>("Auth/Login", _login);
+                await PocketApiService.PostAsync<AuthResponseDto, LoginDto>("auth/login", _login);
 
             if (authResponseDto != null)
             {

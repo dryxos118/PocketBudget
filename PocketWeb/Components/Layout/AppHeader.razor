@@ -1,0 +1,30 @@
+@using PocketWeb.Models.Dto
+@inherits PocketComponentsBase
+
+<MudAppBar Elevation="1" Dense="true">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                   Color="Color.Inherit"
+                   Edge="Edge.Start"
+                   OnClick="@(() => OnToggleDrawer.InvokeAsync())"/>
+
+    <MudText Typo="Typo.h6" Class="ml-2">Pocket Budget</MudText>
+
+    <MudSpacer/>
+
+    <CultureSelect/>
+
+    <div class="mx-2">
+        <UserMenu Profile="ProfileInfo" OnLogout="OnLogout"/>
+    </div>
+
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                   Href="https://github.com/dryxos118/PocketBudget"
+                   Target="_blank"  
+                   Class="mx-1 pocket-shake pocket-link"/>
+</MudAppBar>
+
+@code {
+    [Parameter] public EventCallback OnToggleDrawer { get; set; }
+    [Parameter] public EventCallback OnLogout { get; set; }
+    [Parameter] public ProfileInfoDto ProfileInfo { get; set; } = new();
+}

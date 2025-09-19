@@ -1,0 +1,22 @@
+@using PocketWeb.Models.Utils
+@inherits PocketComponentsBase
+
+<MudDrawer Open="@Open"
+           Variant="@Variant"
+           OpenChanged="@OpenChanged"
+           ClipMode="DrawerClipMode.Always"
+           Elevation="@Elevation"
+           Anchor="@Anchor">
+    <MudNavMenu>
+        <AppNavMenu NavItems="@Items"/>
+    </MudNavMenu>
+</MudDrawer>
+
+@code {
+    [Parameter] public bool Open { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter] public DrawerVariant Variant { get; set; } = DrawerVariant.Mini;
+    [Parameter] public Anchor Anchor { get; set; } = Anchor.Left;
+    [Parameter] public int Elevation { get; set; } = 1;
+    [Parameter] public IEnumerable<NavItem> Items { get; set; } = [];
+}

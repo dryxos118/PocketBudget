@@ -23,6 +23,7 @@
 }
 
 body {
+  font-family: "Ubuntu", "Cantarell", "Segoe UI", "Helvetica Neue", Arial, sans-serif !important;
   background-color: var(--color-background) !important;
   color: var(--color-text) !important;
   line-height: 1.5;
@@ -59,15 +60,26 @@ a {
   border: 1px solid #424242;
 }
 
-.pocket-link, .mud-nav-link {
+.pocket-link, .mud-nav-link, a.mud-menu-item {
   text-decoration: none;
   color: var(--color-primary);
 }
-.pocket-link:hover, .mud-nav-link:hover {
-  color: var(--color-primary-hover);
+.pocket-link:hover, .mud-nav-link:hover, a.mud-menu-item:hover {
+  color: var(--color-primary-hover) !important;
 }
-.pocket-link.active, .mud-nav-link.active {
-  color: var(--color-primary-active);
+.pocket-link.active, .mud-nav-link.active, a.mud-menu-item.active {
+  color: var(--color-primary-active) !important;
+}
+
+.user-menu-card .mud-card-content.user-menu-card-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.mud-dialog .mud-dialog-title {
+  padding: 8px 24px !important;
 }
 /* phone */
 .loading-phone {

@@ -1,0 +1,17 @@
+@using PocketWeb.Models.Utils
+@inherits PocketComponentsBase
+
+@foreach (NavItem link in NavItems)
+{
+    <MudNavLink Href="@link.Href"
+                Class="mb-3 app-nav"
+                Disabled="@link.Disabled"
+                Match="NavLinkMatch.All"
+                Icon="@link.Icon">
+        @link.Text
+    </MudNavLink>
+}
+
+@code {
+    [Parameter] public IEnumerable<NavItem> NavItems { get; set; } = [];
+}

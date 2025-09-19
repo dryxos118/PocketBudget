@@ -10,5 +10,6 @@ public static class WebApplicationBuilderExtensions
         services.AddScoped<AuthentificationService>();
         services.AddScoped<AuthenticationStateProvider, JwtTokenAuthenticationStateProvider>();
         services.AddScoped<IPocketApiService, PocketApiService>();
+        services.AddScoped<PocketDialogService>();
     }
 }

@@ -1,0 +1,44 @@
+@using PocketWeb.Models.Dto
+@inherits PocketComponentsBase
+
+<MudMenu Color="Color.Primary" AnchorOrigin="Origin.BottomRight"
+         TransformOrigin="Origin.TopRight">
+    <ActivatorContent>
+        <MudAvatar Class="cursor-pointer pocket-shake"
+                   Size="Size.Medium"
+                   Color="Color.Primary"
+                   Variant="Variant.Filled">
+            @Profile.Initial
+        </MudAvatar>
+    </ActivatorContent>
+
+    <ChildContent>
+        <MudCard Class="user-menu-card" Elevation="0" Square="true">
+            <MudCardContent Class="user-menu-card-content">
+                <MudAvatar Size="Size.Medium" Color="Color.Primary">@Profile.Initial</MudAvatar>
+                <div>
+                    <MudText Typo="Typo.subtitle2">@Profile.FullName</MudText>
+                    <MudText Typo="Typo.caption">@Profile.Email</MudText>
+                </div>
+            </MudCardContent>
+        </MudCard>
+
+        <MudDivider Class="my-1"/>
+
+        <MudMenuItem Href="/profile" Icon="@Icons.Material.Filled.Person">Profil</MudMenuItem>
+        <MudMenuItem Href="/account" Icon="@Icons.Material.Filled.ManageAccounts">Gérer le compte</MudMenuItem>
+
+        <MudDivider Class="my-1"/>
+
+        <MudMenuItem Icon="@Icons.Material.Filled.Logout" IconColor="Color.Error"
+                     OnClick="@(() => OnLogout.InvokeAsync())">
+            Se déconnecter
+        </MudMenuItem>
+    </ChildContent>
+
+</MudMenu>
+
+@code {
+    [Parameter] public ProfileInfoDto Profile { get; set; } = new();
+    [Parameter] public EventCallback OnLogout { get; set; }
+}

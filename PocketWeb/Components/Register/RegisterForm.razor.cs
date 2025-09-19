@@ -55,7 +55,7 @@ public partial class RegisterForm : PocketComponentsBase
         _isSubmitting = true;
 
         AuthResponseDto? authResponseDto =
-            await PocketApiService.PostAsync<AuthResponseDto, RegisterDto>("Auth/Register", _register);
+            await PocketApiService.PostAsync<AuthResponseDto, RegisterDto>("auth/register", _register);
 
         if (authResponseDto != null)
         {

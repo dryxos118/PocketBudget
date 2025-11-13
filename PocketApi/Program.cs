@@ -21,11 +21,9 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 {
     option.JsonSerializerOptions.WriteIndented = true;
     option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    option.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
+builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 // Services
 builder.Services.AddPocketBudgetService();
 builder.Services.AddHttpClient();
@@ -37,7 +35,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "PocketBudget API",
         Version = "v1",
-        Description = "Powered by Dryxos118 & It’sRaven"
+        Description = "Powered by Dryxos118 & It'sRaven"
     });
     options.SchemaFilter<EnumDescriptionFilter>();
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -47,7 +45,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Entrez le token JWT dans le format : Bearer {votre_token}"
+        Description = "JWT : Bearer {votre_token}"
     });
     options.EnableAnnotations();
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -82,7 +80,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuer = true,
             ValidAudience = builder.Configuration.GetSection("TokenSettings").GetValue<string>("Audience"),
             ValidateAudience = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("TokenSettings").GetValue<string>("Key") ?? "")),
+            IssuerSigningKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration.GetSection("TokenSettings").GetValue<string>("Key") ??
+                                           "")),
             ValidateIssuerSigningKey = true
         };
     });
@@ -95,10 +96,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pocket API V1");
-    });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pocket API V1"); });
 }
 
 app.UseCors(builder =>

@@ -4,32 +4,15 @@ using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace PocketApi.Migrations
 {
     /// <inheritdoc />
-    public partial class BeginProject : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "PocketRole",
-                columns: table => new
-                {
-                    role_id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    role_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    role_description = table.Column<string>(type: "longtext", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PocketRole", x => x.role_id);
-                })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -39,9 +22,10 @@ namespace PocketApi.Migrations
                     user_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     email = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    username = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    first_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    last_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    enabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,38 +59,29 @@ namespace PocketApi.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "PocketUserSettings",
                 columns: table => new
                 {
-                    RolesRoleId = table.Column<int>(type: "int", nullable: false),
-                    UsersUserId = table.Column<int>(type: "int", nullable: false)
+                    user_setting_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    avatar_url = table.Column<string>(type: "longtext", nullable: false),
+                    theme = table.Column<int>(type: "int", nullable: false),
+                    currency = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
+                    language = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
+                    date_format = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    user_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.RolesRoleId, x.UsersUserId });
+                    table.PrimaryKey("PK_PocketUserSettings", x => x.user_setting_id);
                     table.ForeignKey(
-                        name: "FK_UserRoles_PocketRole_RolesRoleId",
-                        column: x => x.RolesRoleId,
-                        principalTable: "PocketRole",
-                        principalColumn: "role_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_PocketUser_UsersUserId",
-                        column: x => x.UsersUserId,
+                        name: "FK_PocketUserSettings_PocketUser_user_id",
+                        column: x => x.user_id,
                         principalTable: "PocketUser",
                         principalColumn: "user_id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.InsertData(
-                table: "PocketRole",
-                columns: new[] { "role_id", "role_description", "role_name" },
-                values: new object[,]
-                {
-                    { 1, "", "PocketUser" },
-                    { 2, "", "PocketAdmin" }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PocketExpense_user_id",
@@ -114,9 +89,10 @@ namespace PocketApi.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UsersUserId",
-                table: "UserRoles",
-                column: "UsersUserId");
+                name: "IX_PocketUserSettings_user_id",
+                table: "PocketUserSettings",
+                column: "user_id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -126,10 +102,7 @@ namespace PocketApi.Migrations
                 name: "PocketExpense");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
-
-            migrationBuilder.DropTable(
-                name: "PocketRole");
+                name: "PocketUserSettings");
 
             migrationBuilder.DropTable(
                 name: "PocketUser");

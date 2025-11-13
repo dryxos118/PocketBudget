@@ -11,12 +11,12 @@ namespace PocketApi.Config
         {
             if (context.Type.IsEnum)
             {
-                schema.Description = "Valeurs possibles :\n";
+                schema.Description = "Value possibles :\n";
                 foreach (var value in Enum.GetValues(context.Type))
                 {
                     var fieldInfo = context.Type.GetField(value.ToString() ?? "");
                     var descriptionAttribute = fieldInfo?.GetCustomAttribute<DescriptionAttribute>();
-                    schema.Description += $"- {value} : {descriptionAttribute?.Description ?? "Pas de description"}\n";
+                    schema.Description += $"- {value} : {descriptionAttribute?.Description ?? "No description"}\n";
                 }
             }
         }

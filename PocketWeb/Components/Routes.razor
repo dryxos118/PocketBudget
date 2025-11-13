@@ -46,7 +46,7 @@
 {
     [CascadingParameter] public HttpContext? HttpContext { get; set; }
 
-    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
     protected override void OnInitialized()
     {

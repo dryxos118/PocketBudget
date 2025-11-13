@@ -1,0 +1,28 @@
+@using PocketWeb.Models.Utils
+@inherits PocketComponentsBase
+
+<MonthsTabs CurrentMonth="Month" CurrentTab="CurrentTabView" CurrentTabChanged="@ChangeTabView"
+            CurrentMonthChanged="@ChangeMonth"/>
+
+<div class="container-fluid d-flex flex-column flex-fill">
+    @if (CurrentTabView == TabView.Graph)
+    {
+        <MudPaper Class="month-panel">
+            Graph Tabs
+        </MudPaper>
+    }
+    else
+    {
+        <MudPaper Class="month-panel">
+            Build Panel
+        </MudPaper>
+    }
+</div>
+
+<style>
+    .month-panel {
+        height: 100%;
+        overflow: auto;
+        padding: 1rem;
+    }
+</style>

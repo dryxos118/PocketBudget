@@ -31,7 +31,7 @@ body {
   color: var(--color-text) !important;
   line-height: 1.5;
   font-size: 0.875rem;
-  height: 100vh;
+  height: calc(100dvh - calc(var(--mud-appbar-height) - var(--mud-appbar-height) / 4));
 
   .mud-main-content {
     height: 100%;
@@ -44,9 +44,11 @@ a {
 }
 
 .page {
-  height: calc(100vh - var(--mud-appbar-height));
   display: flex;
   flex-direction: column;
+  margin-top: calc(var(--mud-appbar-height) - var(--mud-appbar-height) / 4) !important;
+  margin-left: var(--mud-drawer-width-mini-left) !important;
+  margin-right: 3rem !important;
 }
 
 .pocket-panel {

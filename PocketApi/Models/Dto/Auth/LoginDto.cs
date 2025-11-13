@@ -4,10 +4,8 @@ namespace PocketApi.Models.Dto
 {
     public class LoginDto
     {
-        [Required(ErrorMessage = "Email is required.")]
-        [EmailAddress(ErrorMessage = "Invalid email format.")]
-        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
-        public string Email { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Email or Username is required.")]
+        public string EmailOrUsername { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(255, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters.")]

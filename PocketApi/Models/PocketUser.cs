@@ -19,25 +19,22 @@ namespace PocketApi.Models
 
         [Required]
         [MaxLength(255)]
+        [Column("username")]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(255)]
         [Column("password")]
         public string Password { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(100)]
-        [Column("first_name")]
-        public string FirstName { get; set; } = string.Empty;
+        [Column("enabled")] public bool Enabled { get; set; } = true;
 
-        [Required]
-        [MaxLength(100)]
-        [Column("last_name")]
-        public string LastName { get; set; } = string.Empty;
+        [Required] [Column("role")] public PocketRole Role { get; set; } = PocketRole.PocketUser;
 
-        // Settings
+        // one-to-one
+        public PocketUserSettings Settings { get; set; } = new();
 
-        // Family
-
+        // one-to-many
         public List<PocketExpense> Expenses { get; set; } = [];
-
-        public List<PocketRole> Roles { get; set; } = [];
     }
 }

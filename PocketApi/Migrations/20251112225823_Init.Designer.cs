@@ -11,8 +11,8 @@ using PocketApi.Data;
 namespace PocketApi.Migrations
 {
     [DbContext(typeof(PocketBudgetContext))]
-    [Migration("20250718123743_BeginProject")]
-    partial class BeginProject
+    [Migration("20251112225823_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,43 +62,6 @@ namespace PocketApi.Migrations
                     b.ToTable("PocketExpense");
                 });
 
-            modelBuilder.Entity("PocketApi.Models.PocketRole", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("role_id");
-
-                    b.Property<string>("RoleDescription")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("role_description");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("role_name");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("PocketRole");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            RoleDescription = "",
-                            RoleName = "PocketUser"
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            RoleDescription = "",
-                            RoleName = "PocketAdmin"
-                        });
-                });
-
             modelBuilder.Entity("PocketApi.Models.PocketUser", b =>
                 {
                     b.Property<int>("UserId")
@@ -112,17 +75,9 @@ namespace PocketApi.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("email");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("first_name");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("last_name");
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("enabled");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -130,24 +85,65 @@ namespace PocketApi.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("password");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int")
+                        .HasColumnName("role");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("username");
+
                     b.HasKey("UserId");
 
                     b.ToTable("PocketUser");
                 });
 
-            modelBuilder.Entity("PocketRolePocketUser", b =>
+            modelBuilder.Entity("PocketApi.Models.PocketUserSettings", b =>
                 {
-                    b.Property<int>("RolesRoleId")
-                        .HasColumnType("int");
+                    b.Property<int>("UserSettingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_setting_id");
 
-                    b.Property<int>("UsersUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AvatarUrl")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("avatar_url");
 
-                    b.HasKey("RolesRoleId", "UsersUserId");
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("currency");
 
-                    b.HasIndex("UsersUserId");
+                    b.Property<string>("DateFormat")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("date_format");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("language");
+
+                    b.Property<int>("Theme")
+                        .HasColumnType("int")
+                        .HasColumnName("theme");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("UserSettingId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("PocketUserSettings");
                 });
 
             modelBuilder.Entity("PocketApi.Models.PocketExpense", b =>
@@ -161,24 +157,23 @@ namespace PocketApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PocketRolePocketUser", b =>
+            modelBuilder.Entity("PocketApi.Models.PocketUserSettings", b =>
                 {
-                    b.HasOne("PocketApi.Models.PocketRole", null)
-                        .WithMany()
-                        .HasForeignKey("RolesRoleId")
+                    b.HasOne("PocketApi.Models.PocketUser", "User")
+                        .WithOne("Settings")
+                        .HasForeignKey("PocketApi.Models.PocketUserSettings", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PocketApi.Models.PocketUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PocketApi.Models.PocketUser", b =>
                 {
                     b.Navigation("Expenses");
+
+                    b.Navigation("Settings")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

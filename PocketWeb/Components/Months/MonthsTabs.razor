@@ -1,0 +1,82 @@
+@using PocketWeb.Models.Utils
+@inherits PocketComponentsBase
+
+<div class="container-fluid py-3">
+    <div class="row g-3 mb-3">
+        <div class="col-3 d-flex align-items-center">
+            <MudSelect T="int" Value="CurrentMonth" Variant="Variant.Outlined" Class="w-100"
+                       ValueChanged="CurrentMonthChanged">
+                @foreach (var state in _months)
+                {
+                    <MudSelectItem Value="state.Value">@state.Key</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+        <div class="col-9">
+            <MudButtonGroup Class="h-100" FullWidth="true" OverrideStyles="false">
+                <MudButton Color="Color.Primary"
+                           Variant="Variant.Filled"
+                           OnClick="@(() => OnTabChange(TabView.Graph))"
+                           Class="@GetButtonClass(TabView.Graph)">
+                    <MudIcon Icon="@Icons.Material.Filled.PieChart"/>
+                    <span class="d-none d-md-inline-flex ms-2">Months</span>
+                </MudButton>
+                <MudButton Color="Color.Primary"
+                           Variant="Variant.Filled"
+                           OnClick="@(() => OnTabChange(TabView.Detail))"
+                           Class="@GetButtonClass(TabView.Detail)">
+                    <MudIcon Icon="@Icons.Material.Filled.TableView"/>
+                    <span class="d-none d-md-inline-flex ms-2">Detail</span>
+                </MudButton>
+            </MudButtonGroup>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public TabView CurrentTab { get; set; } = TabView.Graph;
+    [Parameter] public int CurrentMonth { get; set; } = DateTime.Now.Month;
+    [Parameter] public EventCallback<TabView> CurrentTabChanged { get; set; }
+    [Parameter] public EventCallback<int> CurrentMonthChanged { get; set; }
+    private string _value = string.Empty;
+
+    private Dictionary<string, int> _months = new()
+    {
+        { "January", 1 },
+        { "February", 2 },
+        { "March", 3 },
+        { "April", 4 },
+        { "May", 5 },
+        { "June", 6 },
+        { "July", 7 },
+        { "August", 8 },
+        { "September", 9 },
+        { "October", 10 },
+        { "November", 11 },
+        { "December", 12 },
+    };
+
+    private string GetButtonClass(TabView tabView)
+    {
+        return tabView == CurrentTab ? "my-2 pocket-active" : "my-2";
+    }
+
+    private async Task OnTabChange(TabView tabView)
+    {
+        if (CurrentTab != tabView)
+        {
+            CurrentTab = tabView;
+            await CurrentTabChanged.InvokeAsync(CurrentTab);
+        }
+    }
+
+    private async Task OnMonthChange(int month)
+    {
+        if (CurrentMonth != month)
+        {
+            CurrentMonth = month;
+            await CurrentMonthChanged.InvokeAsync(CurrentMonth);
+        }
+    }
+
+}

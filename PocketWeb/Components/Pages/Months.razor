@@ -1,8 +1,9 @@
 ﻿@page "/month"
 @page "/month/{month:int}"
+@using PocketWeb.Components.Months
+@inherits PocketComponentsBase
 
-<h1>Months Page</h1>
-<h3>@Month</h3>
+<MonthComponent Month="Month"/>
 
 @code
 {

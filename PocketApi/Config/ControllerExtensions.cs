@@ -57,11 +57,9 @@ namespace PocketApi.Config
         public static int GetUserId(this Controller controller)
         {
             string? userId = controller.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new PocketActionResult("No user found", ErrorType.Unauthorized);
-            }
-            return int.Parse(userId);
+            return string.IsNullOrEmpty(userId)
+                ? throw new PocketActionResult("User not found", ErrorType.Unauthorized)
+                : int.Parse(userId);
         }
     }
 }
